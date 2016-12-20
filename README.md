@@ -1,12 +1,26 @@
 ar_sys
 ======
 
-3D pose estimation ROS package using ArUco marker boards
+3D pose estimation ROS package using ArUco marker boards - dynamic changed of marker characteristics via topic and client/server
 
-## Usage:
-- roslaunch ar_sys single_board.launch
-- roslaunch ar_sys multi-boards.launch
-- roslaunch ar_sys system_viewer.launch
+## Usage
+Launch file in order to run:
+
+* The camera node 
+```
+roslaunch ar_sys camera0.launch
+```
+
+* MultiBoard
+```
+roslaunch ar_sys multi-boards_laptop.launch
+```
+
+* Singleboard
+```
+roslaunch ar_sys single_board_laptop.launch
+```
+
 
 ## Wiki:
 See http://wiki.ros.org/ar_sys

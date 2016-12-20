@@ -5,7 +5,7 @@ ar_sys
 
 ## Usage
 
-* Ccamera node 
+* Camera node 
 ```
 roslaunch ar_sys camera0.launch
 ```

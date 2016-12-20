@@ -1,0 +1,5 @@
+string corners
+float32 marker_size
+int64 id
+---
+bool result

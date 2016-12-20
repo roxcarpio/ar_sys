@@ -4,9 +4,8 @@ ar_sys
 3D pose estimation ROS package using ArUco marker boards - dynamic changed of marker characteristics via topic and client/server
 
 ## Usage
-Launch file in order to run:
 
-* The camera node 
+* Ccamera node 
 ```
 roslaunch ar_sys camera0.launch
 ```

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+  <node ns="camera0" pkg="image_proc" type="image_proc" name="image_proc0" />
+  <node pkg="usb_cam" type="usb_cam_node" name="camera0" output="screen" >
+    <param name="video_device" value="/dev/video0" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="camera0" />
+    <param name="camera_name" value= "camera0"/>
+    <param name="camera_info_url" value= "file:////home/rosa/svn_catkin/src/ar_sys/camera_info/camera0_640x480.yaml"/> <!-- ;fljgn -->
+    <param name="framerate" value="30" />
+  </node>
+</launch>

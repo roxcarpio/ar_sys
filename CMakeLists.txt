@@ -7,9 +7,20 @@ find_package(catkin REQUIRED COMPONENTS
 	geometry_msgs
 	image_transport
 	roscpp
+	std_msgs
 	tf
 	visualization_msgs
+	message_generation
 )
+
+## Declare ROS messages and services
+add_message_files(FILES 
+Num.msg
+)
+add_service_files(FILES Board_service.srv)
+
+## Generate added messages and services
+generate_messages(DEPENDENCIES std_msgs)
 
 ###################################
 ## catkin specific configuration ##
@@ -23,9 +34,11 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 	INCLUDE_DIRS include
 	LIBRARIES aruco
-	CATKIN_DEPENDS cv_bridge dynamic_reconfigure geometry_msgs image_transport visualization_msgs roscpp tf
+	CATKIN_DEPENDS cv_bridge dynamic_reconfigure geometry_msgs image_transport visualization_msgs roscpp tf std_msgs message_runtime
 #	DEPENDS system_lib
 )
+
+
 
 include_directories(
 	include
@@ -59,6 +72,10 @@ target_link_libraries(multi_boards aruco ${catkin_LIBRARIES})
 add_executable(system_viewer src/system_viewer.cpp)
 add_dependencies(system_viewer ${catkin_EXPORTED_TARGETS})
 target_link_libraries(system_viewer ${catkin_LIBRARIES})
+
+add_executable(client src/client.cpp)
+add_dependencies(client ${catkin_EXPORTED_TARGETS})
+target_link_libraries(client ${catkin_LIBRARIES})
 
 install(DIRECTORY include/
 	DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}

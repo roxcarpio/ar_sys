@@ -28,6 +28,7 @@ or implied, of Rafael Muñoz Salinas.
 #include <aruco/board.h>
 #include <opencv2/calib3d/calib3d.hpp>
 #include <fstream>
+#include <ros/ros.h>
 using namespace std;
 using namespace cv;
 namespace aruco {
@@ -122,6 +123,7 @@ namespace aruco {
         int i=0;
         for ( FileNodeIterator it = markers.begin(); it!=markers.end(); ++it,i++ ) {
             at ( i ).id= ( *it ) ["id"];
+            cout << "ID fichero:" << at ( i ).id << "\n";
             FileNode FnCorners= ( *it ) ["corners"];
             for ( FileNodeIterator itc = FnCorners.begin(); itc!=FnCorners.end(); ++itc ) {
                 vector<float> coordinates3d;
@@ -130,8 +132,93 @@ namespace aruco {
                     throw cv::Exception ( 81818,"BoardConfiguration::readFromFile","invalid file type 3" ,__FILE__,__LINE__ );
                 cv::Point3f point ( coordinates3d[0],coordinates3d[1],coordinates3d[2] );
                 at ( i ).push_back ( point );
+                cout << "ID fichero:" << at ( i ) << "\n";
             }
         }
+
+    }
+
+    void BoardConfiguration::updateBoard(int Id, string coordinates3d_manual)
+    {
+
+    // Only need one MI for the moment:
+    // If size() > 1 , pop_back
+    // TBD , to be done.
+        if(size()!=1){
+            for ( int i=1 ;i < size(); i++)
+            {
+              at ( i ).id=0;
+              at ( i ).pop_back();
+            }
+        }
+
+        mInfoType=1;
+
+        int aux = 1;
+        resize ( aux );
+
+        // Save new Id
+        at ( 0 ).id = Id;
+
+      std::stringstream   data(coordinates3d_manual);
+
+      float a1,b1,c1,a2,b2,c2,a3,b3,c3,a4,b4,c4;
+      char sep;
+      data >> sep >> a1 >> sep >> b1 >> sep >> c1 >> sep >> sep >>
+              sep >> a2 >> sep >> b2 >> sep >> c2 >> sep >> sep >>
+              sep >> a3 >> sep >> b3 >> sep >> c3 >> sep >> sep >>
+              sep >> a4 >> sep >> b4 >> sep >> c4 >> sep;
+
+      at(0).clear();
+
+      cv::Point3f point1 ( a1,b1,c1);
+      at ( 0 ).push_back ( point1 );
+
+      cv::Point3f point2 ( a2,b2,c2);
+      at ( 0 ).push_back ( point2 );
+
+      cv::Point3f point3 ( a3,b3,c3);
+      at ( 0 ).push_back ( point3 );
+
+      cv::Point3f point4 ( a4,b4,c4);
+      at ( 0 ).push_back ( point4 );
+    }
+
+    void BoardConfiguration::updateBoardDecisionProcess(int Id, float mk_size)
+    {
+
+        if(size()!=1){
+            for ( int i=1 ;i < size(); i++)
+            {
+              at ( i ).id=0;
+              at ( i ).pop_back();
+            }
+        }
+
+        mInfoType=1;
+
+        int aux = 1;
+        resize ( aux );
+
+        // Save new Id
+        at ( 0 ).id = Id;
+
+
+      at(0).clear();
+
+      float half_size = mk_size/2;
+
+      cv::Point3f point1 ( -half_size,half_size, 0);
+      at ( 0 ).push_back ( point1 );
+
+      cv::Point3f point2 ( half_size,half_size, 0);
+      at ( 0 ).push_back ( point2 );
+
+      cv::Point3f point3 ( half_size,-half_size, 0);
+      at ( 0 ).push_back ( point3 );
+
+      cv::Point3f point4 ( -half_size, -half_size, 0);
+      at ( 0 ).push_back ( point4 );
     }
 
     /**

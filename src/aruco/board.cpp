@@ -132,8 +132,17 @@ namespace aruco {
                     throw cv::Exception ( 81818,"BoardConfiguration::readFromFile","invalid file type 3" ,__FILE__,__LINE__ );
                 cv::Point3f point ( coordinates3d[0],coordinates3d[1],coordinates3d[2] );
                 at ( i ).push_back ( point );
-                cout << "ID fichero:" << at ( i ) << "\n";
+
             }
+
+            markers_corners.push_back(at ( i ));
+            cout << "Corners fichero:" << at ( i ) << "\n";
+
+        }
+
+        for (int ii=0; ii<markers_corners.size(); ii++ )
+        {
+            cout << "\nmarkers_corners:" << markers_corners.at ( ii ) << "\n";
         }
 
     }
@@ -182,6 +191,47 @@ namespace aruco {
 
       cv::Point3f point4 ( a4,b4,c4);
       at ( 0 ).push_back ( point4 );
+    }
+
+    void BoardConfiguration::updateBoardServiceOneMarker(int Id, float mk_size)
+    {
+
+        if(size()!=1){
+            for ( int i=1 ;i < size(); i++)
+            {
+              at ( i ).id=0;
+              at ( i ).pop_back();
+            }
+        }
+
+        mInfoType=1;
+
+        int aux = 1;
+        resize ( aux );
+
+        // Save new Id
+        at ( 0 ).id = Id;
+
+
+      at(0).clear();
+
+      float half_size = mk_size/2;
+
+      cv::Point3f point1 ( -half_size,half_size, 0);
+      at ( 0 ).push_back ( point1 );
+
+      cv::Point3f point2 ( half_size,half_size, 0);
+      at ( 0 ).push_back ( point2 );
+
+      cv::Point3f point3 ( half_size,-half_size, 0);
+      at ( 0 ).push_back ( point3 );
+
+      cv::Point3f point4 ( -half_size, -half_size, 0);
+      at ( 0 ).push_back ( point4 );
+
+      ROS_INFO_STREAM("Marker manual ID: " << at ( 0 ).id );
+      ROS_INFO_STREAM("Marker manual Coordenates: " << at ( 0 ) );
+
     }
 
     void BoardConfiguration::updateBoardDecisionProcess(int Id, float mk_size)

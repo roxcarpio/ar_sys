@@ -22,6 +22,7 @@
 	<arg name="video_rectified" default="true" />
 
 	<arg name="boards_config" default="$(find ar_sys)/data/multi_rosa/boards_ones.yml"/>
+	<arg name="boards_config_multi" default="$(find ar_sys)/data/multi_rosa/YAML_00_14.yml"/>
 	<arg name="boards_directory" default="$(find ar_sys)/data/multi_rosa"/>
     <arg name="publish_tf" default="false" />
 

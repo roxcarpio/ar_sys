@@ -319,7 +319,7 @@ class ArSysMultiBoards
 				mDetector.detect(inImage, markers, camParam, min_size, false);
 
                 //computation time - image process
-                double result_img_proc = mDetector.t2_img_proc_aruco.toNSec() - t1_img_proc_aruco.toNSec();
+                //double result_img_proc = mDetector.t2_img_proc_aruco.toNSec() - t1_img_proc_aruco.toNSec();
 
                 for (int board_index = 0; board_index < boards.size(); board_index++)
 				{
@@ -362,7 +362,7 @@ class ArSysMultiBoards
 						}
 
                         //computation time - detection
-                        double result_detect = t2_detecion.toNSec() - mDetector.t1_detec_aruco.toNSec();
+                       // double result_detect = t2_detecion.toNSec() - mDetector.t1_detec_aruco.toNSec();
 
                         // computation time detection - computation time image procesin and pose z in cm
                         geometry_msgs::PoseStamped DataMsg;

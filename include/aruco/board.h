@@ -70,6 +70,7 @@ class ARUCO_EXPORTS  BoardConfiguration: public vector<MarkerInfo>
 {
     friend class Board;
 public:
+    vector<vector<cv::Point3f> > markers_corners;
     enum MarkerInfoType {NONE=-1,PIX=0,METERS=1};//indicates if the data in MakersInfo is expressed in meters or in pixels so as to do conversion internally
     //variable indicates if the data in MakersInfo is expressed in meters or in pixels so as to do conversion internally
     int mInfoType;

@@ -3,7 +3,7 @@
 <launch>
 	<arg name="camera_enable" default="true"/>
 	<arg name="camera_device" default="/dev/video0"/>
-	<arg name="camera_info" default="file:////home/rosa/svn_catkin/src/ar_sys/camera_info/camera_calibration.yaml"/>
+	<arg name="camera_info" default="$(find ar_sys)/camera_info/camera_calibration.yaml"/>
 	<arg name="camera_frame_id" default="camera0"/>
 	<arg name="camera_width" default="640"/>
 	<arg name="camera_height" default="480" />

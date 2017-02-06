@@ -113,6 +113,13 @@ public:
     /**Set in the list passed the set of the ids 
      */
     void getIdList(vector<int> &ids,bool append=true)const;
+
+    void updateBoard(int Id, string coordinates3d_manual);
+
+    void updateBoardServiceOneMarker(int Id, float mk_size);
+
+    void updateBoardDecisionProcess(int Id, float mk_size);
+    
 private:
     /**Saves the board info to a file
     */

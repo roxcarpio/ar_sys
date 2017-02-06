@@ -367,8 +367,8 @@ class ArSysMultiBoards
                         // computation time detection - computation time image procesin and pose z in cm
                         geometry_msgs::PoseStamped DataMsg;
                         DataMsg.pose.position.x = 100 * poseMsg.pose.position.z;
-                        DataMsg.pose.position.y = result_detect;
-                        DataMsg.pose.position.z = result_img_proc;
+                        //DataMsg.pose.position.y = result_detect;
+                        //DataMsg.pose.position.z = result_img_proc;
                         pose_tProc_tDetec_pub.publish(DataMsg);
 
                         //ROS_INFO_STREAM("Computed time = " << result_detect);

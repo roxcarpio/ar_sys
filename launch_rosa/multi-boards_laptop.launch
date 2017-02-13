@@ -45,6 +45,7 @@
 
 		<param name="image_is_rectified" type="bool" value="$(arg video_rectified)"/>
 		<param name="boards_config" type="string" value="$(arg boards_config)"/>
+		<param name="boards_config_multi" type="string" value="$(arg boards_config_multi)"/>
 		<param name="boards_directory" type="string" value="$(arg boards_directory)"/>
 		<param name="draw_markers" type="bool" value="$(arg result_draw_markers)" />
 		<param name="draw_markers_cube" type="bool" value="$(arg result_draw_markers_cube)" />

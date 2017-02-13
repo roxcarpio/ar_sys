@@ -8,7 +8,7 @@
     <param name="pixel_format" value="yuyv" />
     <param name="camera_frame_id" value="camera0" />
     <param name="camera_name" value= "camera0"/>
-    <param name="camera_info_url" value= "file:////home/rosa/svn_catkin/src/ar_sys/camera_info/camera0_640x480.yaml"/> <!-- ;fljgn -->
+    <param name="camera_info_url" value= "(find ar_sys)/camera_info/camera_calibration.yaml"/> <!-- ;fljgn -->
     <param name="framerate" value="30" />
   </node>
 </launch>

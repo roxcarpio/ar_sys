@@ -87,13 +87,14 @@ namespace aruco {
     *
     */
     float BoardDetector::detect ( const vector<Marker> &detectedMarkers,const  BoardConfiguration &BConf, Board &Bdetected, Mat camMatrix,Mat distCoeff,float markerSizeMeters ) throw ( cv::Exception ) {
-        if ( BConf.size() ==0 ) throw cv::Exception ( 8881,"BoardDetector::detect","Invalid BoardConfig that is empty",__FILE__,__LINE__ );
-        if ( BConf[0].size() <2 ) throw cv::Exception ( 8881,"BoardDetector::detect","Invalid BoardConfig that is empty 2",__FILE__,__LINE__ );
+      //  if ( BConf.size() ==0 ) throw cv::Exception ( 8881,"BoardDetector::detect","Invalid BoardConfig that is empty",__FILE__,__LINE__ );
+      //  if ( BConf[0].size() <2 ) throw cv::Exception ( 8881,"BoardDetector::detect","Invalid BoardConfig that is empty 2",__FILE__,__LINE__ );
         //compute the size of the markers in meters, which is used for some routines(mostly drawing)
         float ssize;
         if ( BConf.mInfoType==BoardConfiguration::PIX && markerSizeMeters>0 ) ssize=markerSizeMeters;
         else if ( BConf.mInfoType==BoardConfiguration::METERS ) {
             ssize=cv::norm ( BConf[0][0]-BConf[0][1] );
+
         }
 
         // cout<<"markerSizeMeters="<<markerSizeMeters<<endl;
@@ -225,4 +226,3 @@ namespace aruco {
         return BD.getDetectedBoard();
     }
 };
-

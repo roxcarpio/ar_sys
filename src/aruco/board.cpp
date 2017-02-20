@@ -108,11 +108,21 @@ namespace aruco {
       }
     }
 
+    void BoardConfiguration::readFromFileMultiBoard ( string sfile, float m_size) throw ( cv::Exception ) {
+      try{
+        cv::FileStorage fs ( sfile,cv::FileStorage::READ );
+        readFromFileMultiBoard ( fs, m_size);
+      }catch (std::exception &ex){
+    throw  cv::Exception ( 81818,"BoardConfiguration::readFromFile",ex.what()+string(" file=)")+sfile ,__FILE__,__LINE__ );
+      }
+    }
+
 
     /**Reads board info from a file
     */
     void BoardConfiguration::readFromFile ( cv::FileStorage &fs ) throw ( cv::Exception ) {
         int aux=0;
+        int n=1;
         //look for the nmarkers
         if ( fs["aruco_bc_nmarkers"].name() !="aruco_bc_nmarkers" )
             throw cv::Exception ( 81818,"BoardConfiguration::readFromFile","invalid file type" ,__FILE__,__LINE__ );
@@ -130,7 +140,7 @@ namespace aruco {
                 ( *itc ) >>coordinates3d;
                 if ( coordinates3d.size() !=3 )
                     throw cv::Exception ( 81818,"BoardConfiguration::readFromFile","invalid file type 3" ,__FILE__,__LINE__ );
-                cv::Point3f point ( coordinates3d[0],coordinates3d[1],coordinates3d[2] );
+                cv::Point3f point ( coordinates3d[0]/n,coordinates3d[1]/n,coordinates3d[2]/n );
                 at ( i ).push_back ( point );
 
             }
@@ -145,6 +155,41 @@ namespace aruco {
             cout << "\nmarkers_corners:" << markers_corners.at ( ii ) << "\n";
         }
 
+    }
+
+    void BoardConfiguration::readFromFileMultiBoard ( cv::FileStorage &fs,  float m_size ) throw ( cv::Exception ) {
+        int aux=0;
+        //float reducing = 1;
+        float reducing = m_size/ 0.0698; //0.0698 is the maximum size of the markes in these board.
+
+        cout << "reducing" << reducing << endl;
+
+        //look for the nmarkers
+        if ( fs["aruco_bc_nmarkers"].name() !="aruco_bc_nmarkers" )
+            throw cv::Exception ( 81818,"BoardConfiguration::readFromFile","invalid file type" ,__FILE__,__LINE__ );
+        fs["aruco_bc_nmarkers"]>>aux;
+        resize ( aux );
+        fs["aruco_bc_mInfoType"]>>mInfoType;
+        cv::FileNode markers=fs["aruco_bc_markers"];
+        int i=0;
+        for ( FileNodeIterator it = markers.begin(); it!=markers.end(); ++it,i++ ) {
+            at ( i ).id= ( *it ) ["id"];
+            cout << "ID fichero:" << at ( i ).id << "\n";
+            FileNode FnCorners= ( *it ) ["corners"];
+            for ( FileNodeIterator itc = FnCorners.begin(); itc!=FnCorners.end(); ++itc ) {
+                vector<float> coordinates3d;
+                ( *itc ) >>coordinates3d;
+                if ( coordinates3d.size() !=3 )
+                    throw cv::Exception ( 81818,"BoardConfiguration::readFromFile","invalid file type 3" ,__FILE__,__LINE__ );
+                cv::Point3f point ( coordinates3d[0]*reducing,coordinates3d[1]*reducing,coordinates3d[2]*reducing );
+                at ( i ).push_back ( point );
+
+            }
+
+            markers_corners.push_back(at ( i ));
+            cout << "Corners fichero:" << at ( i ) << "\n";
+
+        }
     }
 
     void BoardConfiguration::updateBoard(int Id, string coordinates3d_manual)

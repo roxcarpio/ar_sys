@@ -193,12 +193,20 @@ class ArSysMultiBoards
 
         void change_parametersMultiMarker( double size_mk )
         {
-            boards[0].uid = 1;
-            boards[0].name = "MULTI_Manually";
-            boards[0].marker_size = size_mk/100;
+            boards.clear();
+
+            board_t board;
+
+            board.uid = 1;
+            board.name = "MULTI_Manually";
+            board.marker_size = size_mk/100;
+
 
             std::string path(boards_config_multi);
-            boards[0].config.readFromFile(path);
+            board.config.readFromFileMultiBoard(path,size_mk/100);
+
+
+            boards.push_back(board);
 
             ROS_INFO("\n Finish aruco_multi configuration \n");
 

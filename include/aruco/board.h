@@ -116,8 +116,10 @@ public:
     void getIdList(vector<int> &ids,bool append=true)const;
 
     void updateBoard(int Id, string coordinates3d_manual);
-
+    
     void updateBoardServiceOneMarker(int Id, float mk_size);
+    void readFromFileMultiBoard ( string sfile,  float m_size ) throw ( cv::Exception );
+    void readFromFileMultiBoard ( cv::FileStorage &fs ,  float m_size ) throw ( cv::Exception );
 
     void updateBoardDecisionProcess(int Id, float mk_size);
     
